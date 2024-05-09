@@ -6,4 +6,3 @@ module.exports = {
 		console.error('A websocket connection encountered an error:', error);
 	},
 }
-
