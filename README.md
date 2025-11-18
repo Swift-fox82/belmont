@@ -1,130 +1,129 @@
-# Belmont
+# بلمونت (Belmont)
 
-## Introduction
+## معرفی
 
-Belmont is a **Discord anti-nuke bot** developed using **Node.js** and **Discord.js**. It is designed to protect your Discord server from malicious actions such as excessive role and channel creation or deletion. The bot monitors key server events and enforces configurable limits by automatically kicking offending users and reverting their actions. Its comprehensive logging and whitelist functionality help server owners control and monitor potentially dangerous activities on their servers.
+Belmont یک ربات ضد خرابکاری برای دیسکورد است که با استفاده از **Node.js** و **Discord.js** توسعه داده شده است. این ربات برای حفاظت از سرور دیسکورد شما در برابر اقدامات مخرب مانند حذف یا ایجاد بیش‌ازحد نقش و کانال طراحی شده است. Belmont رویدادهای کلیدی سرور را به دقت پایش می‌کند و با محدودیت‌های قابل تنظیم، کاربران متخلف را اخراج کرده و تغییراتشان را بازگردانی می‌کند. سیستم ثبت وقایع و لیست سفید این ربات به مدیران سرور کمک می‌کند تا فعالیت‌های بالقوه خطرناک را کنترل و نظارت کنند.
 
-## Features
+## ویژگی‌ها
 
-- **Anti-Nuke Protection**  
-  Belmont monitors events like **role/channel creation and deletion**. When configured limits are breached, it automatically takes action such as kicking the offending member and restoring changes.
-  
-- **Configurable Limits**  
-  The bot offers commands to set limits on how many actions (e.g., role deletions or channel creations) a user can perform within a specified timeframe. Once a user exceeds the limit, punitive actions are enforced.
-  
-- **Whitelist Management**  
-  Server owners can whitelist trusted users using commands so that they are exempt from anti-nuke actions. Commands include **/whitelist** and **/unwhitelist**.
-  
-- **Logging Functionality**  
-  Administrators can designate dedicated channels for logging all the significant events. All anti-nuke actions generate detailed embeds that are posted to the logging channel.
-  
-- **Easy Command Handling**  
-  Belmont leverages a streamlined command and event handling system to ensure that interactions with the bot are efficient and well-organized.
+- **محافظت ضد خرابکاری** – نظارت بر رویدادهایی مانند ایجاد/حذف نقش و کانال. در صورت تجاوز از محدودیت‌های تعریف شده، ربات به طور خودکار اقدام کرده و کاربر خاطی را اخراج می‌کند و تغییرات را برمی‌گرداند.
 
-## Requirements
+- **محدودیت‌های قابل تنظیم** – امکان تعیین تعداد مجاز عملیات (مانند ایجاد یا حذف نقش/کانال) در یک بازه زمانی مشخص. پس از عبور از حد مجاز، اقدامات تنبیهی اعمال می‌شود.
 
-To run Belmont, ensure that you have the following installed:
+- **مدیریت لیست سفید** – مدیران می‌توانند کاربران قابل اعتماد را در لیست سفید قرار دهند تا از اقدامات ضد خرابکاری مستثنا شوند. فرمان‌های `/whitelist` و `/unwhitelist` برای مدیریت لیست سفید در دسترس هستند.
 
-- **Node.js** (version 14 or higher)
-- **npm** (Node Package Manager)
-- **Quick.db** – for database support, based on [QuickDB](https://www.npmjs.com/package/quick.db)
-- **Discord.js** – for interacting with the Discord API
+- **ثبت وقایع (Logging)** – امکان تعیین کانال مشخص برای دریافت گزارش‌های تمام رویدادهای ضد خرابکاری. هر اقدام مشکوک با پیام‌های تعبیه‌شده دقیق در این کانال ثبت می‌شود.
 
-## Installation
+- **ساختار فرمان ساده** – برای تعامل با ربات از دستورات خط‌کوتاه (Slash Commands) استفاده می‌شود، که کار با ربات را ساده و سازمان‌یافته می‌کند.
 
-1. **Clone the repository:**  
-   Open your terminal and execute:
-   code:
-   npm install
+## پیش‌نیازها
+
+برای اجرای Belmont باید ابزارهای زیر را نصب داشته باشید:
+
+- **Node.js** (نسخه ۱۴ یا بالاتر)
+- **Quick.db** – برای پشتیبانی پایگاه داده، مبتنی بر QuickDB
+- **Discord.js** – برای تعامل با API دیسکورد
+
+## نصب
+
+1. **کلون کردن مخزن**
+
+   ابتدا مخزن را کلون کرده و وابستگی‌ها را نصب کنید:
+
    ```bash
    git clone https://github.com/Swift-fox82/belmont.git
    cd belmont
    npm install
    ```
 
-2. **Setup Environment:**  
-   Create and configure your **config.json** file with your bot token, client ID, guild ID, and developer ID.
-   
-   Example config.json:
+2. **آماده‌سازی فایل پیکربندی**
+
+   فایل `config.json` را در ریشه مخزن ایجاد کرده و مقادیر زیر را جایگذاری کنید:
+
    ```json
    {
-     "token": "YOUR_DISCORD_BOT_TOKEN",
-     "clientId": "YOUR_CLIENT_ID",
-     "guildId": "YOUR_SERVER_ID",
-     "Dev": {
-       "hyron": "YOUR_DEVELOPER_ID"
+     "token": "توکن ربات دیسکورد شما",
+     "clientId": "شناسه کلاینت (برنامه) شما",
+     "guildId": "شناسه سرور (گیلد)",
+     "dev": {
+       "hyron": "شناسه توسعه‌دهنده شما"
      }
    }
    ```
 
-3. **Deploy Commands:**  
-   Deploy your slash commands by running the deploy script:
+3. **استقرار فرمان‌ها**
+
+   برای ثبت فرمان‌های خط‌کوتاه در سرور، اسکریپت زیر را اجرا کنید:
+
    ```bash
    node deploy.js
    ```
 
-## Usage
+## استفاده
 
-1. **Start the bot:**  
-   Start your bot by executing:
+1. **اجرای ربات**
+
+   برای راه‌اندازی ربات، فرمان زیر را اجرا کنید:
+
    ```bash
    node index.js
    ```
-   Upon successful login, the bot will display a message such as *"Bot is ready"* in your console.
 
-2. **Commands:**  
-   The bot supports several slash commands, including:
-   
-   - **/log** – Configure the log channel where anti-nuke alerts and event logs will be sent.
-   - **/anti** – Enable or disable the anti-nuke system.
-   - **/limit** – Set specific action limits for roles or channels (creation and deletion).
-   - **/whitelist** – Add a user to the whitelist, exempting them from anti-nuke actions.
-   - **/unwhitelist** – Remove a user from the whitelist.
+   پس از ورود موفق، ربات پیامی مشابه «Bot is ready» در کنسول نمایش می‌دهد.
 
-3. **Event Handling:**  
-   Belmont actively listens and responds to several server events such as:
-   
-   - **GuildRoleCreate & GuildRoleDelete:**  
-     Detect suspicious role actions and enforce configured limits.
-     
-   - **ChannelCreate & ChannelDelete:**  
-     Monitor channel activities and automatically respond if limits are exceeded.
+2. **فرمان‌ها**
 
-## Configuration
+   Belmont چند فرمان خط‌کوتاه ارائه می‌دهد:
 
-Belmont uses a simple JSON configuration structure via **config.json**. This file contains all the necessary credentials and IDs required for the bot to run. Key configurable parameters include:
+   - `/log` – تنظیم کانال دریافت گزارش‌های ضد خرابکاری.
+   - `/anti` – فعال یا غیرفعال کردن سیستم ضد خرابکاری.
+   - `/limit` – تعیین حد مجاز برای حذف یا ایجاد نقش/کانال.
+   - `/whitelist` – افزودن کاربر به لیست سفید تا از سیستم ضد خرابکاری مستثنا شود.
+   - `/unwhitelist` – حذف کاربر از لیست سفید.
 
-| Parameter          | Description                        |
-| ------------------ | ---------------------------------- |
-| token              | Your Discord bot token             |
-| clientId           | Application (bot) client ID        |
-| guildId            | Server (guild) ID                  |
-| Dev.hyron          | Developer ID, used for privileged commands |
+3. **مدیریت رویدادها**
 
-Additionally, the bot employs a key-value database (Quick.db) to store server-specific settings such as:
+   ربات به طور فعال بر رویدادهای زیر نظارت دارد و در صورت لزوم پاسخ می‌دهد:
 
-- **Log Channel ID** – The channel to receive logs.
-- **Action Limits** – Number of allowed actions before triggering anti-nuke measures.
-- **Whitelist Status** – Tracks users exempt from anti-nuke protections.
-- **Anti-Nuke Toggle** – Enables/disables the anti-nuke system.
+   - `GuildRoleCreate` و `GuildRoleDelete` – تشخیص و رسیدگی به ایجاد/حذف نقش‌های مشکوک.
+   - `ChannelCreate` و `ChannelDelete` – نظارت بر ایجاد/حذف کانال‌ها و اعمال محدودیت.
 
-## Contributing
+## پیکربندی پیشرفته
 
-Contributions are welcome! To contribute to Belmont:
+فایل `config.json` شامل کلیدهای زیر است:
 
-1. **Fork the repository** and create your feature branch:
+| کلید        | توضیح                                          |
+|-------------|-----------------------------------------------|
+| `token`     | توکن ربات دیسکورد شما                         |
+| `clientId`  | شناسه کلاینت برنامه                           |
+| `guildId`   | شناسه سرور (گیلد)                            |
+| `dev.hyron` | شناسه توسعه‌دهنده، برای دسترسی به فرمان‌های ویژه |
+
+Belmont از **Quick.db** برای ذخیره تنظیمات سرور استفاده می‌کند، از جمله:
+
+- **شناسه کانال لاگ** – کانالی که گزارش‌های ضد خرابکاری به آن ارسال می‌شود.
+- **محدودیت اقدامات** – تعداد مجاز عملیات قبل از فعال شدن سیستم ضد خرابکاری.
+- **وضعیت لیست سفید** – کاربران مستثنا از سیستم ضد خرابکاری.
+- **فعال/غیرفعال بودن سیستم ضد خرابکاری**.
+
+## مشارکت در پروژه
+
+مشارکت شما باعث بهبود Belmont می‌شود! برای مشارکت در توسعه:
+
+1. مخزن را فورک کرده و یک شاخه‌ی جدید برای ویژگی مدنظرتان ایجاد کنید:
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
-   
-2. **Implement your changes,** ensuring that you adhere to the existing code style and project structure.
 
-3. **Test your changes** locally to verify functionality.
+2. تغییرات خود را اعمال کنید و اطمینان حاصل کنید که با سبک کدنویسی و ساختار پروژه هماهنگ است.
 
-4. **Submit a pull request** detailing your changes and the intended improvements.
+3. تغییرات را محلی تست کنید تا از عملکرد صحیح مطمئن شوید.
 
-Please follow these guidelines to ensure a smooth contribution process. Community involvement and code reviews help keep the project robust and secure.
+4. یک Pull Request باز کنید و توضیحات لازم در مورد تغییرات و انگیزهٔ آن‌ها ارائه دهید.
+
+رعایت این مراحل به گردش کار روان کمک می‌کند و به حفظ امنیت و کیفیت پروژه یاری می‌رساند.
 
 ---
 
-Belmont is built with a focus on security and efficient server management. Its robust anti-nuke mechanisms and flexible command structure make it a reliable addition to any Discord server seeking extra protection against malicious activities. Happy securing!
+Belmont با تمرکز بر امنیت و مدیریت کارآمد سرور ساخته شده است. سازوکارهای قدرتمند ضد خرابکاری و ساختار انعطاف‌پذیر فرمان‌ها، این ربات را به انتخابی قابل اعتماد برای هر سرور دیسکورد تبدیل می‌کند که به دنبال محافظت در برابر فعالیت‌های مخرب است. با استفاده از Belmont از سرور خود در برابر خرابکاری‌ها محافظت کنید و خیالی آسوده داشته باشید.
